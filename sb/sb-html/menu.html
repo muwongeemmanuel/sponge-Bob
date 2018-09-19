@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+#wrap{
+		width:100%;
+		/*height:50px*/
+		margin:0;
+		z-index:99;
+		position:relative;
+		background-color:#111;
+		visibility:hidden;
+		
+	}
+.container {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+</style>
+</head>
+<body>
+
+<p>Click on the Menu Icon to transform it to "X":</p>
+<div class="container" onclick="myFunction(this)">
+  <div class="bar1"></div>
+  <div class="bar2"></div>
+  <div class="bar3"></div>
+</div>
+
+<script>
+function myFunction(x) {
+    x.classList.toggle("change");
+	document.getElementById("wrap").style.visibility = "visible";
+	
+}
+</script>
+<div id="wrap">
+			<ul>
+			  <li><a class="active" href="sbhome.html">Home</a></li>
+			  <li class="dropdown">
+				<a href="javascript:void(0)" class="dropbtn">Program</a>
+				<div class="dropdown-content">
+				  <a href="daycare.html">Day Care</a>
+				  <a href="nursery.html">Nursery School</a>
+				  <a href="primary.html">Primary School</a>
+				</div>
+			  </li>
+			  <li><a href="admission.html">Admission</a></li>
+			  <li class="dropdown">
+				<a href="javascript:void(0)" class="dropbtn">Our Staff</a>
+				<div class="dropdown-content">
+				  <a href="administrators.html">Administrators</a>
+				  <a href="academic.html">Academic Staff</a>
+				  <a href="non.html">Non teaching staff</a>
+				</div>
+			  </li>
+			  <li><a href="about.html">About Us</a></li>
+			  <li><a href="login.html">Login</a></li>
+			</ul>
+			
+		</div>
+</body>
+</html>
