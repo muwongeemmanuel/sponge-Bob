@@ -18,6 +18,7 @@
 		height: 30px;
 		width: 300px;
 	}
+	
 	textarea{
 		width: 300px;
 	}
@@ -100,7 +101,7 @@
 		text-align:center;
 	}
 	#wrap{
-		max-width:840px;
+		max-width:860px;
 		text-align:;
 		padding:20px;
 		margin:0 auto;
@@ -210,9 +211,11 @@
 	}
 	li {
     float: left;
-	width:120px;
-	
-}
+	/*width:120px;*/
+	}
+	li a{
+	width:140px;
+	}
 	
 li a, .dropbtn {
     display: inline-block;
