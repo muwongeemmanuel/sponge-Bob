@@ -15,11 +15,22 @@
 		border-radius:20px;
 	}
 	input{
-		height: 30px;
-		width: 300px;
+		height: 40px;
+		width: 600px;
+		border-radius: 5px;
+		font-size: 20px;
 	}
+	
 	textarea{
-		width: 300px;
+		width: 600px;
+		border-radius: 5px;
+		font-size: 20px;
+	}
+	select{
+		height: 40px;
+		width: 600px;
+		border-radius: 5px;
+		font-size: 20px;
 	}
 	.submit{
 		width: 80px;
@@ -273,6 +284,23 @@ li.dropdown {
 			float:;
 			
 		}
+	
+	table {
+	  font-family: arial, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	  color:white;
+	}
+
+	td, th {
+	  border: 1px solid #dddddd;
+	  text-align: left;
+	  padding: 8px;
+	}
+
+	tr:nth-child(even) {
+	  background-color: #dddddd;
+	}		
 	
 	@media screen and (min-width:501px ){
 		li{

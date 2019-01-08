@@ -7,11 +7,21 @@
 		text-align:center;
 	}
 	input{
-		height: 25px;
-		width: 190px;
+		height: 30px;
+		width: 300px;
+		border-radius: 5px;
+		font-size: 15px;
 	}
 	textarea{
-		width: 190px;
+		width: 300px;
+		border-radius: 5px;
+		font-size: 15px;
+	}
+	select{
+		height: 30px;
+		width: 300px;
+		border-radius: 5px;
+		font-size: 15px;
 	}
 	.submit{
 		width: 80px;
@@ -192,4 +202,7 @@
 	.change .bar3 {
 		-webkit-transform: rotate(45deg) translate(-8px, -8px);
 		transform: rotate(45deg) translate(-8px, -8px);
+	}
+	table, th, td {
+  		border: 1px solid black;
 	}
