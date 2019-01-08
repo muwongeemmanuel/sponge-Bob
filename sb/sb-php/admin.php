@@ -72,7 +72,7 @@
 		</div>
 
 		<div id="myDropdown" class="dropdown-content">
-			 <a class="active" href="staff_admin.html">Staff</a>
+			 <a class="active" href="admin.php">Staff</a>
 			 <a href="creative.html">Creative Corner</a>
 			 <a href="calender.html">Calender</a>
 			 <a href="notification.html">Notification</a>
@@ -92,7 +92,7 @@
 		
 		<div id="wrap">
 			<ul>
-			  <li><a class="active" href="staff_admin.html">Staff</a></li>
+			  <li><a class="active" href="admin.php">Staff</a></li>
 			  <li><a href="creative.html">Creative Corner</a></li>
 			  <li><a href="calender.html">Calender</a></li>
 			  <li><a href="notification.html">Notification</a></li>
@@ -115,12 +115,54 @@
 							
 						</a>
 					</p>
-					<p style="color:white;text-align:;padding:20px;">
-						We approach children as unique individuals who are curious about everything. Teachers, really, are trained providers. 
-						We listen to understand what children are asking and what they want to know. We respond by surrounding them with books, tools, and materials 
-						to discover their own answers and solve their own problems. What adults call play is really a child’s work. Each day they are eager to get to 
-						work and see what they can discover. If we can keep children asking questions, we know we are reaching them.
-					</p>
+
+					<?php
+								//3.1.2 Checking the values are existing in the database or not
+							$select_staff = "SELECT * FROM `staff`";
+							 
+							$result = mysqli_query($connection, $select_staff) or die(mysqli_error($connection));
+							$count = mysqli_num_rows($result);
+					?>	
+							
+					<?php if ($count == 0): ?>
+						<p style="color:white;text-align:center;padding:20px;">
+							Sorry, No details of staff have been added yet.
+						</p>
+					<?php else: ?>
+						
+						<p style="color:white;text-align:;padding:px;">
+							
+							<?php foreach ($result as $staff): ?>
+
+							<p class="left-h" style=" text-align:;padding-left:20px;margin:20px;">
+								<img src= "<?php echo $staff['image']; ?>" height="150" width="150" alt="not here" style = "border-radius: 10px;">
+							</p>
+							<p style="color:white;text-align:;padding-left:20px;margin:40px;">
+
+								<p style="color:white;">Fullnames: <?php echo $staff['fullnames']; ?></p>
+								<p style="color:white;">Catergory: <?php echo $staff['catergory']; ?></p>
+								<p style="color:white;">Position: <?php echo $staff['title']; ?></p>
+								<p style="color:white;">Description: <?php echo $staff['description']; ?></p>
+							</p>
+							<p style="color:white;text-align:center;">
+								<a>
+									<?php echo( "<button class = \"submit\" onclick= \"location.href='addstaff.php'\" style = \"background-color:green;color:white;border-radius:5px;\">Delete</button>");
+									?>
+									
+								</a>
+								<a>
+									<?php echo( "<button class = \"submit\" onclick= \"location.href='addstaff.php'\" style = \"background-color:green;color:white;border-radius:5px;\">Edit</button>");
+									?>
+									
+								</a>
+							</p>
+							<hr>
+
+							<?php endforeach; ?>
+
+						</p>
+					<?php endif; ?>		
+					
 		
 		</div>
 

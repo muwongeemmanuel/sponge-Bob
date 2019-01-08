@@ -31,7 +31,16 @@
 </style>
 
 </head>
-<body style="background-color:gray ; margin:20px;font-size:20px;">
+<body style="background-color:gray ; margin:20px;font-size:20px;" id="body" <?php if (isset($_SESSION['addingstaff'])){ ?> onload ="mybody()" >
+
+<script>
+function mybody() {
+	window.alert("<?php echo $_SESSION['addingstaff']; ?>")
+}
+</script>
+
+<?php unset($_SESSION['addingstaff']); // remove it now we have used it ?>
+<?php } ?>
 
 
 <!-- muwonge -->
@@ -115,20 +124,21 @@
 							
 						</a>
 					</div>
-					<div style="color:white;text-align:center;padding:px;">
-						<form name="addingstaff" method="post" action="addingstaff.php" style="background-color:;text-align:;padding-bottom:0px;">
+					<div style="color:white;text-align:;padding-left:40px;">
+						<form name="addingstaff" method="post" action="addingstaff.php" enctype="multipart/form-data"
+								 style="background-color:;text-align:;padding-bottom:0px;">
 							
 							<p><label style="color:white;">Staff ID : <br>
-								<input type="text" name="StaffID" placeholder="sb001" id="StaffID"/>
+								<input type="text" name="staffID" placeholder="sb001" id="StaffID"/>
 							</label></p>
 							<p><label style="color:white;">Fullname : <br>
 								<input type="text" name="fullname" placeholder="Firstname Lastname" id="fullname"/>
 							</label></p>
 							<p><label style="color:white;">Description : <br>
-							<textarea placeholder="S/he's a good caring teacher ..." rows="10"></textarea>
+							<textarea name="description" placeholder="S/he's a good caring teacher ..." rows="10"></textarea>
 							</label></p>
 							<p><label style="color:white;">Catergory : <br>
-								<select name="catergory" style="height: 30px; width: 300px;">
+								<select name="catergory">
 								  <option value="not selected">***please select the catergory***</option>
 								  <option value="Directors">Directors</option>
 								  <option value="Administrators">Administrators</option>
@@ -139,11 +149,11 @@
 							<p><label style="color:white;">Title/Position : <br>
 									<input type="text" name="title" placeholder="e.g headteacher" id="title"/>
 							</label></p>
-							<p><label style="color:white;">Image : <br>
+							<p style="text-align: center;"><label style="color:white;">Image : <br>
 								<input type="file" id="files" name="image" /><br>
-								<img id="image" style="width: 200px; height: 200px; background-color: white;" />
+								<img id="image" style="width: 200px; height: 200px; background-color: white;text-align: center;" />
 							</label></p>
-							<p>
+							<p style="text-align: center;">
 								<input class="submit" type="submit" name="submit" value="Save">
 							</p>
 

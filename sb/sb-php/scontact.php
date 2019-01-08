@@ -4,10 +4,12 @@
  	require('connect.php');
 	
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<title>Contact</title>
 <!--<basefont size="12"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -30,16 +32,17 @@
 </style>
 
 </head>
-<body style="background-color:gray;margin:20px;font-size:20px;" id="body" <?php if (isset($_SESSION['login_fail'])){ ?>onload ="mybody()" >
+<body style="background-color:gray ; margin:20px;font-size:20px;" id="body" <?php if (isset($_SESSION['contacting'])){ ?> onload ="mybody()" >
 
 <script>
 function mybody() {
-	window.alert("<?php echo $_SESSION['login_fail']; ?>")
+	window.alert("<?php echo $_SESSION['contacting']; ?>")
 }
 </script>
 
-<?php unset($_SESSION['login_fail']); // remove it now we have used it ?>
+<?php unset($_SESSION['contacting']); // remove it now we have used it ?>
 <?php } ?>
+
 
 
 <!-- muwonge -->
@@ -83,8 +86,8 @@ function mybody() {
 			 <a href="admission.html">Admission</a>
 			 <a href="staff.html">Our Staff</a>
 			 <a href="about.html">About Us</a>
-			 <a href="scontact.php">Contact</a>
-			 <a class="active" href="login.php">Login</a>
+			 <a class="active" href="scontact.php">Contact</a>
+			 <a href="login.php">Login</a>
 		</div>
 
 
@@ -123,10 +126,10 @@ function mybody() {
 				</div>
 			  </li>
 			  <li><a href="admission.html">Admission</a></li>
-			  <li><a href="staff.html">Our Staff</a></li>
+			  <li><a href="staff.html">Our Staff</a> </li>
 			  <li><a href="about.html">About Us</a></li>
-			  <li><a href="scontact.php">Contact</a></li>
-			  <li><a class="active" href="login.php">Login</a></li>
+			  <li><a class="active" href="scontact.php">Contact</a></li>
+			  <li><a href="login.php">Login</a></li>
 			</ul>
 			
 		</div>
@@ -134,18 +137,27 @@ function mybody() {
 	<div class="all2">	
 		<div class="login" style="background-color: indigo;">
 			<h2 class="h" style="background-color: blue;">	
-					<p style="color:white;text-align:center;"><b>Login</b></p>
+					<p style="color:white;text-align:center;"><b>Talk To Us</b></p>
 			</h2>
-			<div style="background-color: ;text-align:center;">
-					<form name="form1" method="post" action="check.php" style="background-color:;text-align:;padding-bottom:50px;">
-						
-						<p><label style="color:white;">Username : <input type="text" placeholder="Username" name="username" id="uname"/></label></p>
-						<p><label style="color:white;">Password : <input type="password" placeholder="Password" name="password" id="pword"/></label></p>
+				<div style="background-color: ;text-align:center;">
+					<form method="post" action="contacting.php" style="background-color:;text-align:;padding-bottom:50px;">
+
+						<p><label style="color:white;">Name : <br>
+							<input type="text" name="name" placeholder="Your Name" id="yourname"/>
+						</label></p>
+						<p><label style="color:white;">Email : <br>
+							<input type="text" name="email" placeholder="emma@gmail.com" id="email"/>
+						</label></p>
+						<p><label style="color:white;">Telephone Contact : <br>
+							<input type="text" name="contact" placeholder="+256-773586691" id="contact"/>
+						</label></p>
+						<p><label style="color:white;">Comment : <br>
+							<textarea name="comment" placeholder="Comments here..." rows="10"></textarea>
+						</label></p>
 						<p>
-							<input class="submit" type="submit" name="submit"value="Log in"  style="background-color:blue;color:white;border-radius:5px;">
+							<input class="submit" type="submit" name="submit" value="Send">
 						</p>
-						<p><a href="forgot.html" style="color:red;">Forgot your password ?</a></p>
-						
+					
 					</form>
 			</div>
 		
