@@ -1,4 +1,6 @@
 <?php
+
+ini_set('display_errors', 'On');
 $connection = mysqli_connect('localhost', 'root', '');
 if (!$connection){
     die("Database Connection Failed" . mysqli_error($connection));

@@ -2,17 +2,15 @@
 	
 	session_start();
  	require('connect.php');
-	
-	//$_SESSION['username'] = $username;
-	//checking if the session is still valid.
-	if (isset($_SESSION['username'])){
+ 	require('escape.php');
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin</title>
+<title>View Staff</title>
 <!--<basefont size="12"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -117,23 +115,30 @@ function mybody() {
 			<h2 style="background-color: green;">	
 					<p class="cc" style="color:white;text-align:center;"><b>Manage Staff</b></p>
 			</h2>
-					<p style="color:white;text-align:center;">
-						<a>
-							<?php echo( "<button class = \"submit\" onclick= \"location.href='addstaff.php'\" style = \"background-color:green;color:white;border-radius:5px;\">Add Staff</button>");
-							?>
-							
+					<!--<p style="color:white;text-align:center;">
+						<a href="admin.php">
+							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">Go Back
+							</button>
 						</a>
-					</p>
+					</p> -->
 
 					<?php
 								//3.1.2 Checking the values are existing in the database or not
-							$select_staff = "SELECT * FROM `staff`";
-							 
-							$result = mysqli_query($connection, $select_staff) or die(mysqli_error($connection));
-							$count = mysqli_num_rows($result);
+							if (empty($_GET['staff'])) {
+								# code...
+								$staff = false;
+							} else{
+								$id = $_GET['staff'];
+
+								$select_staff = "SELECT * FROM staff WHERE id = ".$id;
+													 
+								$staff = mysqli_query($connection, $select_staff) or die(mysqli_error($connection));
+								$count = mysqli_num_rows($staff);
+
+							}
 					?>	
 							
-					<?php if ($count == 0): ?>
+					<?php if (!$staff): ?>
 						<p style="color:white;text-align:center;padding:20px;">
 							Sorry, No details of staff have been added yet.
 						</p>
@@ -142,40 +147,35 @@ function mybody() {
 						<p style="color:white;text-align:;padding:px;">
 							
 							
-							<table>
-								
-									<tr>
-										<th>StaffID</th> <th>Fullnames</th> <th>Position</th> <th></th> <th></th> <th></th>
-									</tr>
-									<?php foreach ($result as $staff): ?>
-										<tr>
-											<td><?php echo $staff['id']; ?></td>
-											<td><?php echo $staff['fullnames']; ?></td>
-											<td><?php echo $staff['title']; ?></td>
-											<td>
-												<a href="viewstaff.php?staff=<?php echo $staff['id']; ?>">
-													<button class = "submit" style = "background-color:blue;color:white;border-radius:5px;">View
-													</button>
-												</a>
-											</td>
-											<td>
-												<a href="editstaff.php?staff=<?php echo $staff['id']; ?>">
-													<button class = "submit" style = "background-color:blue;color:white;border-radius:5px;">Edit
-													</button>
-												</a>
-													
-											</td>
-											<td>
-												<a href="deletestaff.php?staff=<?php echo $staff['id']; ?>">
-													<button class = "submit" style = "background-color:blue;color:white;border-radius:5px;">Delete
-													</button>
-												</a>
-											</td>
-										</tr>
-									<?php endforeach; ?>
-								
 
-							</table>
+							<?php foreach ($staff as $staff): ?>
+
+							
+							<p class="left-h" style=" text-align:;padding-left:20px;margin:20px;">
+								<img src= "<?php echo e($staff['image']); ?>" height="150" width="150" alt="not here" style = "border-radius: 10px;">
+							</p>
+							<p style="color:white;text-align:;padding-left:20px;margin:40px;">
+
+								<p style="color:white;padding-left:20px;">Fullnames: <?php echo e($staff['fullnames']); ?></p>
+								<p style="color:white;padding-left:20px;">Catergory: <?php echo e($staff['catergory']); ?></p>
+								<p style="color:white;padding-left:20px;">Position: <?php echo e($staff['title']); ?></p>
+								<p style="color:white;padding-left:20px;">Description: <?php echo e($staff['description']); ?></p>
+							</p>
+							<p style="color:white;text-align:center;">
+								<a href="admin.php">
+									<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">Go Back</button>
+								</a>
+								<a href="deletestaff.php?staff=<?php echo $staff['id']; ?>">
+									<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">Delete</button>
+								</a>
+								
+								<a href="editstaff.php?staff=<?php echo $staff['id']; ?>">
+									<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">Edit</button>
+								</a>
+							</p>
+							<hr>
+
+							<?php endforeach; ?>
 
 						</p>
 					<?php endif; ?>		
@@ -213,16 +213,3 @@ function mybody() {
 
 </body>
 </html>
-
-<?php 
-	
-	}
-
-	else{
-			//f the user session has expired
-			$_SESSION['login_fail'] = "Your Session has expired, please login again.";
-			//echo "Your Session has expired, please login again.";
-			header('Location: login.php');
-	}
-
-?>

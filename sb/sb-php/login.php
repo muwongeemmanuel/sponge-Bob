@@ -78,11 +78,11 @@ function mybody() {
 
 		<div id="myDropdown" class="dropdown-content">
 			 <a href="sbhome.php">Home</a>
-			 <a href="nursery.html">Nursery School</a>
-			 <a href="primary.html">Primary School</a>
-			 <a href="admission.html">Admission</a>
-			 <a href="staff.html">Our Staff</a>
-			 <a href="about.html">About Us</a>
+			 <a href="nursery.php">Nursery School</a>
+			 <a href="primary.php">Primary School</a>
+			 <a href="admission.php">Admission</a>
+			 <a href="staff.php">Our Staff</a>
+			 <a href="about.php">About Us</a>
 			 <a href="scontact.php">Contact</a>
 			 <a class="active" href="login.php">Login</a>
 		</div>
@@ -118,13 +118,13 @@ function mybody() {
 			  <li class="dropdown">
 				<a href="javascript:void(0)" class="dropbtn">Program</a>
 				<div class="dropdown-content">
-				  <a href="nursery.html">Nursery School</a>
-				  <a href="primary.html">Primary School</a>
+				  <a href="nursery.php">Nursery School</a>
+				  <a href="primary.php">Primary School</a>
 				</div>
 			  </li>
-			  <li><a href="admission.html">Admission</a></li>
-			  <li><a href="staff.html">Our Staff</a></li>
-			  <li><a href="about.html">About Us</a></li>
+			  <li><a href="admission.php">Admission</a></li>
+			  <li><a href="staff.php">Our Staff</a></li>
+			  <li><a href="about.php">About Us</a></li>
 			  <li><a href="scontact.php">Contact</a></li>
 			  <li><a class="active" href="login.php">Login</a></li>
 			</ul>
