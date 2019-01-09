@@ -1,2 +1,2 @@
 # sponge-Bob
-It's a simple website
+It's a simple PHP website
