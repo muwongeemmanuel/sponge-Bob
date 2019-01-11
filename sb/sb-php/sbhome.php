@@ -22,6 +22,26 @@
 		background-color:#4CAF50;
 	}
 	.l{padding-top:17px;}
+
+
+	body, html {
+	  height: 100%;
+	  margin: 0;
+	}
+
+	.bg {
+	  /* The image used */
+	  background-image: url("http://localhost/sb/sb-images/images.jpeg");
+
+	  /* Full height */
+	  height: 100%; 
+
+	  /* Center and scale the image nicely */
+	  background-position: center;
+	  background-repeat: no-repeat;
+	  background-size: cover;
+	}
+
 	
 
 	
@@ -31,7 +51,7 @@
 </style>
 
 </head>
-<body style="background-color:gray ; margin:20px;font-size:20px;">
+<body style="background-color:gray; margin:20px;font-size:20px;">
 
 
 <!-- muwonge -->
@@ -192,11 +212,11 @@
 		
 		<div class="calender" style="background-color: violet;">
 			<h2 style="background-color: blue;">	
-					<p class="c" style="color:white;"><b>School Calender</b></p>
+					<p class="c" style="color:white;"><b>School Calendar</b></p>
 			</h2>
 					<p style="color:white;text-align:center;padding:20px;">
 						Choir rehearsal with Teacher Racheal</br>22nd June 2018</br>
-						<a href="rcalender.html" style="color:green;">Read More</a>
+						<a href="calendar.php" style="color:green;">Read More</a>
 					</p>
 
 		
@@ -211,6 +231,7 @@
 						Swimming letter 2</br>1st August 2018</br>
 						Talent search letter 3</br>3rd September 2018</br>
 						<a href="rcalender.html" style="color:green;">Read More</a>
+						<input type="date">
 					</p>
 
 		
@@ -255,8 +276,5 @@
 		</div>
 		
 		
-	
-	
-
 </body>
 </html>

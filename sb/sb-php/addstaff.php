@@ -83,7 +83,7 @@ function mybody() {
 		<div id="myDropdown" class="dropdown-content">
 			 <a class="active" href="staff_admin.html">Staff</a>
 			 <a href="creative.html">Creative Corner</a>
-			 <a href="calender.html">Calender</a>
+			 <a href="addcalendar.php">Calender</a>
 			 <a href="notification.html">Notification</a>
 			 <a href="logout.php">Log Out</a>
 		</div>
@@ -103,7 +103,7 @@ function mybody() {
 			<ul>
 			  <li><a class="active" href="staff_admin.html">Staff</a></li>
 			  <li><a href="creative.html">Creative Corner</a></li>
-			  <li><a href="calender.html">Calender</a></li>
+			  <li><a href="addcalendar.php">Calendar</a></li>
 			  <li><a href="notification.html">Notification</a></li>
 			  <li><a href="logout.php">Log Out</a></li>
 			</ul>
@@ -118,10 +118,11 @@ function mybody() {
 					<p class="cc" style="color:white;text-align:center;"><b>Add Staff</b></p>
 			</h2>
 					<div style="color:white;text-align:;padding-left: 20px;">
-							<a>
-							<?php echo( "<button class = \"submit\" onclick= \"location.href='admin.php'\" style = \"background-color:green;color:white;border-radius:5px;\">Go Back</button>");
-							?>
 							
+						<a href="admin.php">
+							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">
+								Go Back
+							</button>
 						</a>
 					</div>
 					<div style="color:white;text-align:;padding-left:40px;">
@@ -175,10 +176,10 @@ function mybody() {
 					</div>
 
 					<div style="color:white;text-align:right;padding:20px;">
-							<a>
-							<?php echo( "<button class = \"submit\" onclick= \"location.href='admin.php'\" style = \"background-color:green;color:white;border-radius:5px;\">Go Back</button>");
-							?>
-							
+						<a href="admin.php">
+							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">
+								Go Back
+							</button>
 						</a>
 					</div>
 		

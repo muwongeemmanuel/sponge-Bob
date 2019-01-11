@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin</title>
+<title>Add Calendar</title>
 <!--<basefont size="12"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -31,15 +31,15 @@
 </style>
 
 </head>
-<body style="background-color:gray ; margin:20px;font-size:20px;" id="body" <?php if (isset($_SESSION['changingstaff'])){ ?> onload ="mybody()" >
+<body style="background-color:gray ; margin:20px;font-size:20px;" id="body" <?php if (isset($_SESSION['addingcalendar'])){ ?> onload ="mybody()" >
 
 <script>
 function mybody() {
-	window.alert("<?php echo $_SESSION['changingstaff']; ?>")
+	window.alert("<?php echo $_SESSION['addingcalendar']; ?>")
 }
 </script>
 
-<?php unset($_SESSION['changingstaff']); // remove it now we have used it ?>
+<?php unset($_SESSION['addingcalendar']); // remove it now we have used it ?>
 <?php } ?>
 
 
@@ -81,9 +81,9 @@ function mybody() {
 		</div>
 
 		<div id="myDropdown" class="dropdown-content">
-			 <a class="active" href="admin.php">Staff</a>
+			 <a href="admin.php">Staff</a>
 			 <a href="creative.html">Creative Corner</a>
-			 <a href="addcalendar.php">Calender</a>
+			 <a class="active" href="addcalendar.php">Calendar</a>
 			 <a href="notification.html">Notification</a>
 			 <a href="logout.php">Log Out</a>
 		</div>
@@ -101,9 +101,9 @@ function mybody() {
 		
 		<div id="wrap">
 			<ul>
-			  <li><a class="active" href="admin.php">Staff</a></li>
+			  <li><a href="admin.php">Staff</a></li>
 			  <li><a href="creative.html">Creative Corner</a></li>
-			  <li><a href="addcalendar.php">Calender</a></li>
+			  <li><a class="active" href="addcalendar.php">Calendar</a></li>
 			  <li><a href="notification.html">Notification</a></li>
 			  <li><a href="logout.php">Log Out</a></li>
 			</ul>
@@ -115,71 +115,29 @@ function mybody() {
 		
 		<div class="corner" style="background-color: blue;">
 			<h2 style="background-color: green;">	
-					<p class="cc" style="color:white;text-align:center;"><b>Manage Staff</b></p>
+					<p class="cc" style="color:white;text-align:center;"><b>Add Calendar</b></p>
 			</h2>
-					<p style="color:white;text-align:center;">
-						
-						<a href="addstaff.php">
-							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">
-								Add Staff
-							</button>
-						</a>
-					</p>
-
-					<?php
-								//3.1.2 Checking the values are existing in the database or not
-							$select_staff = "SELECT * FROM `staff`";
-							 
-							$result = mysqli_query($connection, $select_staff) or die(mysqli_error($connection));
-							$count = mysqli_num_rows($result);
-					?>	
+					
+					<div style="color:white;text-align:;padding-left:40px;">
+						<form name="addingcalendar" method="post" action="addingcalendar.php" enctype="multipart/form-data"
+								 style="background-color:;text-align:;padding-bottom:0px;">
 							
-					<?php if ($count == 0): ?>
-						<p style="color:white;text-align:center;padding:20px;">
-							Sorry, No details of staff have been added yet.
-						</p>
-					<?php else: ?>
-						
-						<p style="color:white;text-align:;padding:px;">
+							<p><label style="color:white;">Date Of Event : <br>
+								<input type="Date" name="date" id="date" placeholder="Year-Month-Day e.g <?php echo date("Y-m-d"); ?>" value="" min="" max=""/>
+							</label></p>
 							
+							<p><label style="color:white;">Description : <br>
+							<textarea name="description" placeholder="S/he's a good caring teacher ..." rows="10"></textarea>
+							</label></p>
 							
-							<table>
-								
-									<tr>
-										<th>StaffID</th> <th>Fullnames</th> <th>Position</th> <th></th> <th></th> <th></th>
-									</tr>
-									<?php foreach ($result as $staff): ?>
-										<tr>
-											<td><?php echo $staff['id']; ?></td>
-											<td><?php echo $staff['fullnames']; ?></td>
-											<td><?php echo $staff['title']; ?></td>
-											<td>
-												<a href="viewstaff.php?staff=<?php echo $staff['id']; ?>">
-													<button class = "submit" style = "background-color:blue;color:white;border-radius:5px;">View
-													</button>
-												</a>
-											</td>
-											<td>
-												<a href="editstaff.php?staff=<?php echo $staff['id']; ?>">
-													<button class = "submit" style = "background-color:blue;color:white;border-radius:5px;">Edit
-													</button>
-												</a>
-													
-											</td>
-											<td>
-												<a href="deletestaff.php?staff=<?php echo $staff['id']; ?>">
-													<button class = "submit" style = "background-color:blue;color:white;border-radius:5px;">Delete
-													</button>
-												</a>
-											</td>
-										</tr>
-									<?php endforeach; ?>
-								
+							<p style="text-align: center;">
+								<input class="submit" type="submit" name="submit" value="Add Date">
+							</p>
 
-							</table>
+						</form>
+									
+					</div>
 
-						</p>
-					<?php endif; ?>		
 					
 		
 		</div>
