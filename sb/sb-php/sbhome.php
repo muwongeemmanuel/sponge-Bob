@@ -2,6 +2,7 @@
 	
 	session_start();
  	require('connect.php');
+ 	require('escape.php');
 	
 ?>
 
@@ -214,8 +215,30 @@
 			<h2 style="background-color: blue;">	
 					<p class="c" style="color:white;"><b>School Calendar</b></p>
 			</h2>
-					<p style="color:white;text-align:center;padding:20px;">
-						Choir rehearsal with Teacher Racheal</br>22nd June 2018</br>
+					<p style="color:white;text-align:center;padding:0px;">
+						<?php
+							
+							$year = date("Y");
+							$month = date("n")-1;
+
+							//$select_calendar = "SELECT * FROM calender WHERE day = '".$date."'";
+							$select_calendar = "SELECT * FROM calender WHERE YEAR(`day`) >= '".$year."' AND MONTH(`day`) >= '".$month."' ORDER BY day";
+												 
+							$calendar = mysqli_query($connection, $select_calendar) or die(mysqli_error($connection));
+							$count = mysqli_num_rows($calendar);
+
+							$limit = 0;
+						?>
+						<?php foreach ($calendar as $calendar): ?>
+
+							<?php echo e($calendar['description']); ?><br>
+							<?php echo e($calendar['day']); ?><br>
+							<?php if ($limit++ > 1) break; ?>
+
+							
+
+						<?php endforeach; ?>
+						
 						<a href="calendar.php" style="color:green;">Read More</a>
 					</p>
 
@@ -231,7 +254,6 @@
 						Swimming letter 2</br>1st August 2018</br>
 						Talent search letter 3</br>3rd September 2018</br>
 						<a href="rcalender.html" style="color:green;">Read More</a>
-						<input type="date">
 					</p>
 
 		

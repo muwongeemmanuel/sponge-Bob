@@ -2,17 +2,19 @@
 	
 	session_start();
  	require('connect.php');
-	
-	//$_SESSION['username'] = $username;
-	//checking if the session is still valid.
-	if (isset($_SESSION['username'])){
+ 	require('escape.php');
+
+?> 
+
+<?php
+if (isset($_SESSION['username'])){
 
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>Add Calendar</title>
+<title>Edit Calendar</title>
 <!--<basefont size="12"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -31,17 +33,7 @@
 </style>
 
 </head>
-<body style="background-color:gray ; margin:20px;font-size:20px;" id="body" <?php if (isset($_SESSION['addingcalendar'])){ ?> onload ="mybody()" >
-
-<script>
-function mybody() {
-	window.alert("<?php echo $_SESSION['addingcalendar']; ?>")
-}
-</script>
-
-<?php unset($_SESSION['addingcalendar']); // remove it now we have used it ?>
-<?php } ?>
-
+<body style="background-color:gray ; margin:20px;font-size:20px;">
 
 <!-- muwonge -->
 
@@ -81,9 +73,9 @@ function mybody() {
 		</div>
 
 		<div id="myDropdown" class="dropdown-content">
-			 <a href="admin.php">Staff</a>
+			 <a href="staff_admin.html">Staff</a>
 			 <a href="creative.html">Creative Corner</a>
-			 <a class="active" href="managecalendar.php">Calendar</a>
+			 <a class="active" href="managecalendar.php">Calender</a>
 			 <a href="notification.html">Notification</a>
 			 <a href="logout.php">Log Out</a>
 		</div>
@@ -101,60 +93,78 @@ function mybody() {
 		
 		<div id="wrap">
 			<ul>
-			  <li><a href="admin.php">Staff</a></li>
+			  <li><a href="staff_admin.html">Staff</a></li>
 			  <li><a href="creative.html">Creative Corner</a></li>
-			  <li><a class="active" href="managecalendar.php">Calendar</a></li>
+			  <li><a class="active" href="managecalendar.php">Calender</a></li>
 			  <li><a href="notification.html">Notification</a></li>
 			  <li><a href="logout.php">Log Out</a></li>
 			</ul>
 			
 		</div>
-		
+<?php
+	
+	if (!isset($_GET['calendar'])) {
+		# code...
+		//
+			//$_SESSION['changingstaff'] = "Sorry, No details of staff have been deleted.";
+			
+			header('Location: managecalendar.php');
+			die();
+		//include "C:/xampp/htdocs/sb/sb-php/admin.php";
+	}
+
+	$date = $_GET['calendar']; 
+	$select_calendar = "SELECT * FROM calender WHERE day = '".$date."'";
+	//$insert_staff = "INSERT INTO `staff` VALUES('$staffID','$fullname','$description','$catergory','$title','$image')";
+	$calendar = mysqli_query($connection, $select_calendar) or die(mysqli_error($connection));
+	$count = mysqli_num_rows($calendar);
+
+?>
+	
 	<div class="all2">	
 		
 		
 		<div class="corner" style="background-color: blue;">
 			<h2 style="background-color: green;">	
-					<p class="cc" style="color:white;text-align:center;"><b>Add Calendar</b></p>
+					<p class="cc" style="color:white;text-align:center;"><b>Edit Calendar</b></p>
 			</h2>
-					
 					<div style="color:white;text-align:;padding-left: 20px;">
-							
-						<a href="managecalendar.php">
-							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">
-								Go Back
-							</button>
-						</a>
+							<a href="managecalendar.php">
+									<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">Go Back</button>
+							</a>
 					</div>
-
 					<div style="color:white;text-align:;padding-left:40px;">
-						<form name="addingcalendar" method="post" action="addingcalendar.php" enctype="multipart/form-data"
+						<form name="editingcalendar" method="post" action="editingcalendar.php" enctype="multipart/form-data"
 								 style="background-color:;text-align:;padding-bottom:0px;">
-							
-							<p><label style="color:white;">Date Of Event : <br>
-								<input type="Date" name="date" id="date" placeholder="Year-Month-Day e.g <?php echo date("Y-m-d"); ?>" value="" min="" max=""/>
-							</label></p>
-							
-							<p><label style="color:white;">Description : <br>
-							<textarea name="description" placeholder="We are going to hold a swimming session...." rows="10"></textarea>
-							</label></p>
-							
-							<p style="text-align: center;">
-								<input class="submit" type="submit" name="submit" value="Add Date">
-							</p>
-
+							<?php foreach ($calendar as $calendar): ?>
+								<p><label style="color:white;">Date Of Event : <br>
+									<input type="Date" name="date" id="date" placeholder="Year-Month-Day e.g <?php echo date("Y-m-d"); ?>" value="<?php echo e($calendar['day']); ?>" min="" max=""/>
+								</label></p>
+								
+								<p><label style="color:white;">Description : <br>
+								<textarea name="description" placeholder="We are going to hold a swimming session...." rows="10">
+									<?php echo e($calendar['description']); ?>
+								</textarea>
+								</label></p>
+								<!-- hidden input-->
+								<input type="hidden" name="originaldate" value="<?php echo e($calendar['day']); ?>" />
+								
+								<p style="text-align: center;">
+									<input class="submit" type="submit" name="submit" value="Edit">
+								</p>
+							<?php endforeach; ?>
 						</form>
 									
 					</div>
 
 					<div style="color:white;text-align:right;padding:20px;">
+							
 						<a href="managecalendar.php">
 							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">
 								Go Back
 							</button>
 						</a>
 					</div>
-					
 		
 		</div>
 

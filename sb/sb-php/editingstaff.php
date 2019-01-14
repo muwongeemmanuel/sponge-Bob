@@ -50,7 +50,7 @@
 
 
 		}
-		 var_dump($result);
+		
 		if ($result == true){
 
 			//3.1.3 If the login credentials doesn't match, he will be shown with an error message.

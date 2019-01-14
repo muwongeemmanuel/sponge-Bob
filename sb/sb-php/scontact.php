@@ -128,7 +128,7 @@ function mybody() {
 			  <li><a href="admission.php">Admission</a></li>
 			  <li><a href="staff.php">Our Staff</a> </li>
 			  <li><a href="about.html">About Us</a></li>
-			  <li><a class="php" href="scontact.php">Contact</a></li>
+			  <li><a class="active" href="scontact.php">Contact</a></li>
 			  <li><a href="login.php">Login</a></li>
 			</ul>
 			

@@ -81,7 +81,7 @@ function mybody() {
 		<div id="myDropdown" class="dropdown-content">
 			 <a class="active" href="admin.php">Staff</a>
 			 <a href="creative.html">Creative Corner</a>
-			 <a href="calender.html">Calender</a>
+			 <a href="managecalendar.php">Calender</a>
 			 <a href="notification.html">Notification</a>
 			 <a href="logout.php">Log Out</a>
 		</div>
@@ -101,7 +101,7 @@ function mybody() {
 			<ul>
 			  <li><a class="active" href="admin.php">Staff</a></li>
 			  <li><a href="creative.html">Creative Corner</a></li>
-			  <li><a href="calender.html">Calender</a></li>
+			  <li><a href="managecalendar.php">Calender</a></li>
 			  <li><a href="notification.html">Notification</a></li>
 			  <li><a href="logout.php">Log Out</a></li>
 			</ul>

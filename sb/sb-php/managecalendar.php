@@ -2,6 +2,8 @@
 	
 	session_start();
  	require('connect.php');
+ 	require('escape.php');
+
 	
 	//$_SESSION['username'] = $username;
 	//checking if the session is still valid.
@@ -12,7 +14,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Add Calendar</title>
+<title>Manage Calendar</title>
 <!--<basefont size="12"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -31,15 +33,15 @@
 </style>
 
 </head>
-<body style="background-color:gray ; margin:20px;font-size:20px;" id="body" <?php if (isset($_SESSION['addingcalendar'])){ ?> onload ="mybody()" >
+<body style="background-color:gray ; margin:20px;font-size:20px;" id="body" <?php if (isset($_SESSION['changingcalendar'])){ ?> onload ="mybody()" >
 
 <script>
 function mybody() {
-	window.alert("<?php echo $_SESSION['addingcalendar']; ?>")
+	window.alert("<?php echo $_SESSION['changingcalendar']; ?>")
 }
 </script>
 
-<?php unset($_SESSION['addingcalendar']); // remove it now we have used it ?>
+<?php unset($_SESSION['changingcalendar']); // remove it now we have used it ?>
 <?php } ?>
 
 
@@ -83,7 +85,7 @@ function mybody() {
 		<div id="myDropdown" class="dropdown-content">
 			 <a href="admin.php">Staff</a>
 			 <a href="creative.html">Creative Corner</a>
-			 <a class="active" href="managecalendar.php">Calendar</a>
+			 <a class="active" href="managecalendar.php">Calender</a>
 			 <a href="notification.html">Notification</a>
 			 <a href="logout.php">Log Out</a>
 		</div>
@@ -103,7 +105,7 @@ function mybody() {
 			<ul>
 			  <li><a href="admin.php">Staff</a></li>
 			  <li><a href="creative.html">Creative Corner</a></li>
-			  <li><a class="active" href="managecalendar.php">Calendar</a></li>
+			  <li><a class="active" href="managecalendar.php">Calender</a></li>
 			  <li><a href="notification.html">Notification</a></li>
 			  <li><a href="logout.php">Log Out</a></li>
 			</ul>
@@ -115,45 +117,70 @@ function mybody() {
 		
 		<div class="corner" style="background-color: blue;">
 			<h2 style="background-color: green;">	
-					<p class="cc" style="color:white;text-align:center;"><b>Add Calendar</b></p>
+					<p class="cc" style="color:white;text-align:center;"><b>Manage Calendar</b></p>
 			</h2>
-					
-					<div style="color:white;text-align:;padding-left: 20px;">
-							
-						<a href="managecalendar.php">
+					<p style="color:white;text-align:center;">
+						
+						<a href="addcalendar.php">
 							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">
-								Go Back
+								Add
 							</button>
 						</a>
-					</div>
+					</p>
 
-					<div style="color:white;text-align:;padding-left:40px;">
-						<form name="addingcalendar" method="post" action="addingcalendar.php" enctype="multipart/form-data"
-								 style="background-color:;text-align:;padding-bottom:0px;">
+					<?php
+								//3.1.2 Checking the values are existing in the database or not
+							$select_calendar = "SELECT * FROM `Calender`";
+							 
+							$result = mysqli_query($connection, $select_calendar) or die(mysqli_error($connection));
+							$count = mysqli_num_rows($result);
+					?>	
 							
-							<p><label style="color:white;">Date Of Event : <br>
-								<input type="Date" name="date" id="date" placeholder="Year-Month-Day e.g <?php echo date("Y-m-d"); ?>" value="" min="" max=""/>
-							</label></p>
+					<?php if ($count == 0): ?>
+						<p style="color:white;text-align:center;padding:20px;">
+							Sorry, No details of calendar have been added yet.
+						</p>
+					<?php else: ?>
+						
+						<p style="color:white;text-align:;padding:px;">
 							
-							<p><label style="color:white;">Description : <br>
-							<textarea name="description" placeholder="We are going to hold a swimming session...." rows="10"></textarea>
-							</label></p>
 							
-							<p style="text-align: center;">
-								<input class="submit" type="submit" name="submit" value="Add Date">
-							</p>
+							<table>
+								
+									<tr>
+										<th>Date</th> <th>Description</th> <th></th> <th></th> <th></th>
+									</tr>
+									<?php foreach ($result as $calendar): ?>
+										<tr>
+											<td><?php echo $calendar['day']; ?></td>
+											<td><?php echo $calendar['description']; ?></td>
+											<td>
+												<a href="adminviewcalendar.php?calendar=<?php echo $calendar['day']; ?>">
+													<button class = "submit" style = "background-color:blue;color:white;border-radius:5px;">View
+													</button>
+												</a>
+											</td>
+											<td>
+												<a href="editcalendar.php?calendar=<?php echo $calendar['day']; ?>">
+													<button class = "submit" style = "background-color:blue;color:white;border-radius:5px;">Edit
+													</button>
+												</a>
+													
+											</td>
+											<td>
+												<a href="deletecalendar.php?calendar=<?php echo $calendar['day']; ?>">
+													<button class = "submit" style = "background-color:blue;color:white;border-radius:5px;">Delete
+													</button>
+												</a>
+											</td>
+										</tr>
+									<?php endforeach; ?>
+								
 
-						</form>
-									
-					</div>
+							</table>
 
-					<div style="color:white;text-align:right;padding:20px;">
-						<a href="managecalendar.php">
-							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">
-								Go Back
-							</button>
-						</a>
-					</div>
+						</p>
+					<?php endif; ?>		
 					
 		
 		</div>

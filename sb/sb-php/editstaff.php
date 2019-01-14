@@ -75,7 +75,7 @@ if (isset($_SESSION['username'])){
 		<div id="myDropdown" class="dropdown-content">
 			 <a class="active" href="staff_admin.html">Staff</a>
 			 <a href="creative.html">Creative Corner</a>
-			 <a href="calender.html">Calender</a>
+			 <a href="managecalendar.php">Calender</a>
 			 <a href="notification.html">Notification</a>
 			 <a href="logout.php">Log Out</a>
 		</div>
@@ -95,7 +95,7 @@ if (isset($_SESSION['username'])){
 			<ul>
 			  <li><a class="active" href="staff_admin.html">Staff</a></li>
 			  <li><a href="creative.html">Creative Corner</a></li>
-			  <li><a href="calender.html">Calender</a></li>
+			  <li><a href="managecalendar.php">Calender</a></li>
 			  <li><a href="notification.html">Notification</a></li>
 			  <li><a href="logout.php">Log Out</a></li>
 			</ul>
@@ -198,10 +198,11 @@ if (isset($_SESSION['username'])){
 					</div>
 
 					<div style="color:white;text-align:right;padding:20px;">
-							<a>
-							<?php echo( "<button class = \"submit\" onclick= \"location.href='admin.php'\" style = \"background-color:green;color:white;border-radius:5px;\">Go Back</button>");
-							?>
 							
+						<a href="admin.php">
+							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">
+								Go Back
+							</button>
 						</a>
 					</div>
 		

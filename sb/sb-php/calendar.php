@@ -253,12 +253,46 @@ if ($prev_year < date("Y") ) {
 				    	<?php if ( $day==($i-1) and $month==$cMonth and $year==$cYear ): ?>
 
 				    		<td align='center' valign='middle' height='20px' style="background-color:gray ; margin:20px;font-size:20px;text-align: center;">
-				    			<a href="viewcalendar.php?day=<?php echo $day . ",month=" . $month . ",year=" . $year;?>" style="">
+				    			
 				    				<?php echo $i - $startday + 1; ?> 
-				    			</a>
+				    			
 							</td>
 
-				    	
+				    	<?php elseif (!($count==0)): ?>
+
+				    		<?php $iexecution = 0; ?>
+
+							<?php foreach ($calendar as $dates): ?>
+								<?php 
+
+									$idate = $dates['day'];
+									$iday = date('j',strtotime($idate));
+									$imonth = date('n',strtotime($idate));
+									$iyear = date('Y',strtotime($idate)); 
+
+								?>
+								<?php if ( $iday==($i+1) and $imonth==$cMonth and $iyear==$cYear ): ?>
+
+							    	<td align='center' valign='middle' height='20px' style="background-color:green; margin:20px;font-size:20px;text-align: center;">
+						    			<a href="viewcalendar.php?date=<?php echo $iyear . "-" . $imonth . "-" . $iday;?>" style="">
+						    				<?php echo $i - $startday + 1; ?> 
+						    			</a>
+									</td>
+
+									<?php $iexecution = $iexecution + 1; ?>
+
+							    <?php endif; ?>
+								
+							<?php endforeach; ?>
+
+							<?php if ($iexecution==0): ?>
+
+								<td align='center' valign='middle' height='20px' style="background-color: ; margin:20px;font-size:20px;text-align: center;">
+		    						<?php echo $i - $startday + 1; ?>
+								</td>
+
+							<?php endif; ?>
+
 
 				    	<?php else: ?>
 
@@ -281,6 +315,30 @@ if ($prev_year < date("Y") ) {
 		</td>
 	</tr>
 </table>
+				</p>
+
+				<p style="color:white;text-align:center;padding:0px;">
+					
+					<?php
+						//$select_calendar = "SELECT * FROM calender WHERE day = '".$date."'";
+						$select_calendar = "SELECT * FROM calender WHERE YEAR(`day`) = '".$_REQUEST["year"]."' AND MONTH(`day`) = '".$_REQUEST["month"]."'";
+											 
+						$calendar = mysqli_query($connection, $select_calendar) or die(mysqli_error($connection));
+						$count = mysqli_num_rows($calendar);
+					?>
+
+					<?php foreach ($calendar as $calendar): ?>
+
+						<p style="color:white;text-align:;padding-left:20px;margin:40px;">
+
+							<p style="color:white;padding-left:20px;">Date: <?php echo e($calendar['day']); ?></p>
+							<p style="color:white;padding-left:20px;">Description: <?php echo e($calendar['description']); ?></p>
+						</p>
+						
+						<hr>
+
+					<?php endforeach; ?>
+
 				</p>
 				
 		
