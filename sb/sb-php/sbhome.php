@@ -70,7 +70,31 @@
 		<div class="d" >
 			<div style="padding:20px; color:blue;">	
 					<h2 class="leftST"  style="background-image:url(http://localhost/sb/sb-images/pencil1.png);">
-					<marquee behavior="scroll" direction="left">You are most welcome here at Sponge Bob's website</marquee>
+					<marquee behavior="scroll" direction="left">
+						You are most welcome here at Sponge Bob's website
+						<?php
+							
+							$year = date("Y");
+							$month = date("n")-1;
+
+							//$select_calendar = "SELECT * FROM calender WHERE day = '".$date."'";
+							$select_notification = "SELECT * FROM notification WHERE YEAR(`day`) >= '".$year."' AND MONTH(`day`) >= '".$month."'AND type = 'Urgent' ORDER BY day";
+												 
+							$notification = mysqli_query($connection, $select_notification) or die(mysqli_error($connection));
+							$count = mysqli_num_rows($notification);
+
+							$limit = 0;
+						?>
+						<?php foreach ($notification as $notification): ?>
+
+							******<?php echo e($notification['description']); ?>******
+							
+							<!--<?php if ($limit++ > 1) break; ?> -->
+
+						<?php endforeach; ?>
+						For more information check our website Notice board.
+						
+					</marquee>
 					</h2>
 
 					<p class="budge"><img class="budge2" src="http://localhost/sb/sb-images/images-4.jpeg"  alt="not here"></p>
@@ -239,7 +263,7 @@
 
 						<?php endforeach; ?>
 						
-						<a href="calendar.php" style="color:green;">Read More</a>
+						<a href="calendar1.php" style="color:green;">Read More</a>
 					</p>
 
 		
@@ -249,11 +273,34 @@
 			<h2 style="background-color: indigo;">	
 					<p style="color:white;text-align:;"><b>Notice Board</b></p>
 			</h2>
-					<p style="color:white;text-align:center;padding:20px;">
-						Tour letter 1</br>22nd June 2018</br>
-						Swimming letter 2</br>1st August 2018</br>
-						Talent search letter 3</br>3rd September 2018</br>
-						<a href="rcalender.html" style="color:green;">Read More</a>
+					<p style="color:white;text-align:left;padding:0px;margin-left:20px; ">
+						<?php
+							
+							$year = date("Y");
+							$month = date("n")-1;
+
+							//$select_calendar = "SELECT * FROM calender WHERE day = '".$date."'";
+							$select_notification = "SELECT * FROM notification WHERE YEAR(`day`) >= '".$year."' AND MONTH(`day`) >= '".$month."'AND type = 'Normal' ORDER BY day";
+												 
+							$notification = mysqli_query($connection, $select_notification) or die(mysqli_error($connection));
+							$count = mysqli_num_rows($notification);
+
+							$limit = 0;
+						?>
+						<?php foreach ($notification as $notification): ?>
+
+							<?php echo e($notification['description']); ?><br>
+							<a href="download.php?file=<?php echo e($notification['filepath']);?>" style="color:purple;">
+
+								<?php echo e($notification['filename']);?><br>
+								
+							</a>
+							
+							<?php if ($limit++ > 1) break; ?>
+
+						<?php endforeach; ?>
+						
+						<p style="text-align: center;"><a href="notification.php" style="color:green;">Read More</a></p>
 					</p>
 
 		

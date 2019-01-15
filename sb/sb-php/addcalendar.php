@@ -84,7 +84,7 @@ function mybody() {
 			 <a href="admin.php">Staff</a>
 			 <a href="creative.html">Creative Corner</a>
 			 <a class="active" href="managecalendar.php">Calendar</a>
-			 <a href="notification.html">Notification</a>
+			 <a href="managenotification.php">Notification</a>
 			 <a href="logout.php">Log Out</a>
 		</div>
 
@@ -104,7 +104,7 @@ function mybody() {
 			  <li><a href="admin.php">Staff</a></li>
 			  <li><a href="creative.html">Creative Corner</a></li>
 			  <li><a class="active" href="managecalendar.php">Calendar</a></li>
-			  <li><a href="notification.html">Notification</a></li>
+			  <li><a href="managenotification.php">Notification</a></li>
 			  <li><a href="logout.php">Log Out</a></li>
 			</ul>
 			

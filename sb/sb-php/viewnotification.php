@@ -2,17 +2,15 @@
 	
 	session_start();
  	require('connect.php');
-	
-	//$_SESSION['username'] = $username;
-	//checking if the session is still valid.
-	if (isset($_SESSION['username'])){
+ 	require('escape.php');
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>Add Staff</title>
+<title>View Notification</title>
 <!--<basefont size="12"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
@@ -31,15 +29,15 @@
 </style>
 
 </head>
-<body style="background-color:gray ; margin:20px;font-size:20px;" id="body" <?php if (isset($_SESSION['addingstaff'])){ ?> onload ="mybody()" >
+<body style="background-color:gray ; margin:20px;font-size:20px;" id="body" <?php if (isset($_SESSION['changingnotification'])){ ?> onload ="mybody()" >
 
 <script>
 function mybody() {
-	window.alert("<?php echo $_SESSION['addingstaff']; ?>")
+	window.alert("<?php echo $_SESSION['changingnotification']; ?>")
 }
 </script>
 
-<?php unset($_SESSION['addingstaff']); // remove it now we have used it ?>
+<?php unset($_SESSION['changingnotification']); // remove it now we have used it ?>
 <?php } ?>
 
 
@@ -81,10 +79,10 @@ function mybody() {
 		</div>
 
 		<div id="myDropdown" class="dropdown-content">
-			 <a class="active" href="admin.php">Staff</a>
+			 <a href="admin.php">Staff</a>
 			 <a href="creative.html">Creative Corner</a>
 			 <a href="managecalendar.php">Calender</a>
-			 <a href="managenotification.php">Notification</a>
+			 <a class="active" href="managenotification.php">Notification</a>
 			 <a href="logout.php">Log Out</a>
 		</div>
 
@@ -101,10 +99,10 @@ function mybody() {
 		
 		<div id="wrap">
 			<ul>
-			  <li><a class="active" href="admin.php">Staff</a></li>
+			  <li><a href="admin.php">Staff</a></li>
 			  <li><a href="creative.html">Creative Corner</a></li>
-			  <li><a href="managecalendar.php">Calendar</a></li>
-			  <li><a href="managenotification.php">Notification</a></li>
+			  <li><a href="managecalendar.php">Calender</a></li>
+			  <li><a class="active" href="managenotification.php">Notification</a></li>
 			  <li><a href="logout.php">Log Out</a></li>
 			</ul>
 			
@@ -115,73 +113,74 @@ function mybody() {
 		
 		<div class="corner" style="background-color: blue;">
 			<h2 style="background-color: green;">	
-					<p class="cc" style="color:white;text-align:center;"><b>Add Staff</b></p>
+					<p class="cc" style="color:white;text-align:center;"><b>View Notification</b></p>
 			</h2>
-					<div style="color:white;text-align:;padding-left: 20px;">
-							
+					<!--<p style="color:white;text-align:center;">
 						<a href="admin.php">
-							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">
-								Go Back
+							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">Go Back
 							</button>
 						</a>
-					</div>
-					<div style="color:white;text-align:;padding-left:40px;">
-						<form name="addingstaff" method="post" action="addingstaff.php" enctype="multipart/form-data"
-								 style="background-color:;text-align:;padding-bottom:0px;">
+					</p> -->
+
+					<?php
+								//3.1.2 Checking the values are existing in the database or not
+							if (empty($_GET['notification'])) {
+								# code...
+								$calendar = false;
+							} else{
+								$date =  $_GET['notification'];
+
+								$select_notification = "SELECT * FROM notification WHERE day = '".$date."'";
+													 
+								$notification = mysqli_query($connection, $select_notification) or die(mysqli_error($connection));
+								$count = mysqli_num_rows($notification);
+
+							}
+					?>	
 							
-							<p><label style="color:white;">Staff ID : <br>
-								<input type="text" name="staffID" placeholder="sb001" id="StaffID"/>
-							</label></p>
-							<p><label style="color:white;">Fullname : <br>
-								<input type="text" name="fullname" placeholder="Firstname Lastname" id="fullname"/>
-							</label></p>
-							<p><label style="color:white;">Description : <br>
-							<textarea name="description" placeholder="S/he's a good caring teacher ..." rows="10"></textarea>
-							</label></p>
-							<p><label style="color:white;">Catergory : <br>
-								<select name="catergory">
-								  <option value="not selected">***please select the catergory***</option>
-								  <option value="Directors">Directors</option>
-								  <option value="Administrators">Administrators</option>
-								  <option value="Teaching Staff">Teaching Staff</option>
-								  <option value="Non-Teaching Staff">Non-Teaching Staff</option>
-								</select>
-							</label></p>
-							<p><label style="color:white;">Title/Position : <br>
-									<input type="text" name="title" placeholder="e.g headteacher" id="title"/>
-							</label></p>
-							<p style="text-align: center;"><label style="color:white;">Image : <br>
-								<input type="file" id="files" name="image" /><br>
-								<img id="image" style="width: 200px; height: 200px; background-color: white;text-align: center;" />
-							</label></p>
-							<p style="text-align: center;">
-								<input class="submit" type="submit" name="submit" value="Save">
-							</p>
+					<?php if (!$notification): ?>
+						<p style="color:white;text-align:center;padding:20px;">
+							Sorry, No details of notification have been added yet.
+						</p>
+					<?php else: ?>
+						
+						<p style="color:white;text-align:;padding:px;">
 
-						</form>
-									<!-- javascript that automatically displays the chosen image -->								
-									<script type="text/javascript">
-										document.getElementById("files").onchange = function () {
-									    var reader = new FileReader();
 
-									    reader.onload = function (e) {
-									        // get loaded data and render thumbnail.
-									        document.getElementById("image").src = e.target.result;
-									    };
+							<?php foreach ($notification as $notification): ?>
 
-									    // read the image file as a data URL.
-									    reader.readAsDataURL(this.files[0]);
-									};
-									</script>
-					</div>
+								<p style="color:white;text-align:;padding-left:20px;margin:40px;">
 
-					<div style="color:white;text-align:right;padding:20px;">
-						<a href="admin.php">
-							<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">
-								Go Back
-							</button>
-						</a>
-					</div>
+									<p style="color:white;padding-left:20px;">Date: <?php echo e($notification['type']); ?></p>
+									<p style="color:white;padding-left:20px;">Description: <?php echo e($notification['description']); ?></p>
+									<p style="color:white;padding-left:20px;">
+										<a href="download.php?file=<?php echo e($notification['filepath']);?>" style="color:purple;">
+
+											<?php echo e($notification['filename']);?><br>
+											
+										</a>
+									</p>
+									<p style="color:white;padding-left:20px;">Date: <?php echo e($notification['day']); ?></p>
+								</p>
+								<p style="color:white;text-align:center;">
+									<a href="managenotification.php">
+										<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">Go Back</button>
+									</a>
+									<a href="deletenotification.php?notification=<?php echo $notification['day']; ?>">
+										<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">Delete</button>
+									</a>
+									
+									<a href="editnotification.php?notification=<?php echo $notification['day']; ?>">
+										<button class = "submit" style = "background-color:green;color:white;border-radius:5px;">Edit</button>
+									</a>
+								</p>
+								<hr>
+
+							<?php endforeach; ?>
+
+						</p>
+					<?php endif; ?>		
+					
 		
 		</div>
 
@@ -215,16 +214,3 @@ function mybody() {
 
 </body>
 </html>
-
-<?php 
-	
-	}
-
-	else{
-			//f the user session has expired
-			$_SESSION['login_fail'] = "Your Session has expired, please login again.";
-			//echo "Your Session has expired, please login again.";
-			header('Location: login.php');
-	}
-
-?>
